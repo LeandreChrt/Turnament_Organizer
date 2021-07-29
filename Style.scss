@@ -14,19 +14,19 @@ body {
         grid-template-columns: repeat(42, 1fr);
         @for $i from 1 through 19{
             @if $i < 7 {
-                #J#{$i} {
+                #D#{$i} {
                     grid-column-start: 7*$i+(-6);
                     grid-column-end: 7*$i;
                 }
             }
             @else if $i < 13 {
-                #J#{$i} {
+                #D#{$i} {
                     grid-column-start: 7*($i+(-6))+(-6);
                     grid-column-end: 7*($i+(-6));
                 }
             }
             @else {
-                #J#{$i} {
+                #D#{$i} {
                     grid-column-start: 6*($i+(-12))+(-5);
                     grid-column-end: 6*($i+(-12));
                 }
@@ -48,8 +48,11 @@ body {
             text-align: center;
         }
     }
-    td {
+    td, th {
         text-align: center;
+    }
+    th {
+        border: black 1px solid;
     }
     .center {
         cursor: pointer;

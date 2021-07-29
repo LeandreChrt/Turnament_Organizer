@@ -12,10 +12,10 @@ function start() {
 }
 
 function new_score(id_match) {
-    if (document.getElementById('HP1').value != '' && document.getElementById('HP2').value != ''){
-        if (document.getElementById('HP1').value.match(/^([0-9]+)$/) && document.getElementById('HP2').value.match(/^([0-9]+)$/)){
-            var HP1 = document.getElementById('HP1').value
-            var HP2 = document.getElementById('HP2').value
+    if (document.getElementById('HP1_'+id_match).value != '' && document.getElementById('HP2_'+id_match).value != ''){
+        if (document.getElementById('HP1_'+id_match).value.match(/^([0-9]+)$/) && document.getElementById('HP2_'+id_match).value.match(/^([0-9]+)$/)){
+            var HP1 = document.getElementById('HP1_'+id_match).value
+            var HP2 = document.getElementById('HP2_'+id_match).value
             var team1 = document.getElementById('team1_'+id_match).value
             var team2 = document.getElementById('team2_'+id_match).value
             var WIN = $("#team1_"+id_match)[0].checked ? document.getElementById('team1_'+id_match).value : document.getElementById('team2_'+id_match).value
@@ -33,7 +33,7 @@ function new_score(id_match) {
                 success: function (response) {
                     $('body').html(response);
                     if (document.querySelectorAll('.modal').length == 0){
-                        $('#ranking')[0].innerHTML += '<button onclick="end_turnament()">Fin du tournoi</button>'
+                        $('#ranking')[0].innerHTML += '<button onclick="end_turnament()">Turnament\'s end</button>'
                     }
                 }
             });
@@ -67,6 +67,7 @@ function end_turnament() {
         },
         success: function (response) {
             alert(response)
+            document.location.reload();
         }
     });
 }
