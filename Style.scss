@@ -1,0 +1,80 @@
+body {
+    display: grid;
+    white-space: nowrap;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    font-family:'Times New Roman', Times, serif;
+    #planning {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        display: grid;
+        grid-row-gap: 10px;
+        white-space: nowrap;
+        padding: 15px;
+        grid-template-columns: repeat(42, 1fr);
+        @for $i from 1 through 19{
+            @if $i < 7 {
+                #J#{$i} {
+                    grid-column-start: 7*$i+(-6);
+                    grid-column-end: 7*$i;
+                }
+            }
+            @else if $i < 13 {
+                #J#{$i} {
+                    grid-column-start: 7*($i+(-6))+(-6);
+                    grid-column-end: 7*($i+(-6));
+                }
+            }
+            @else {
+                #J#{$i} {
+                    grid-column-start: 6*($i+(-12))+(-5);
+                    grid-column-end: 6*($i+(-12));
+                }
+            }
+        }
+        table {
+            border: 1px solid black;
+        }
+    }
+    #ranking {
+        grid-column-start: 3;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+        td, th {
+            padding: 5px 10px;
+            border-collapse: collapse;
+            border: black 1px solid;
+            text-align: center;
+        }
+    }
+    td {
+        text-align: center;
+    }
+    .center {
+        cursor: pointer;
+    }
+}
+
+p {
+    text-align: center;
+    padding: 0 2px;
+}
+
+
+button {
+    grid-column-start: 2;
+    max-width: min-content;
+    margin: auto;
+}
+
+input {
+    margin: 10px;
+    &[type="number"]{
+        max-width: 55px;
+    }
+}
+
+.modal-body{
+    text-align: center;
+}
