@@ -11,6 +11,19 @@ function start() {
     });
 }
 
+function load() {
+    $.ajax({
+        type: 'post',
+        url: 'Controller.php',
+        data: {
+            load: 'load'
+        },
+        success: function (response) {
+            $('body').html(response);
+        }
+    });
+}
+
 function new_score(id_match) {
     if (document.getElementById('HP1_'+id_match).value != '' && document.getElementById('HP2_'+id_match).value != ''){
         if (document.getElementById('HP1_'+id_match).value.match(/^([0-9]+)$/) && document.getElementById('HP2_'+id_match).value.match(/^([0-9]+)$/)){
