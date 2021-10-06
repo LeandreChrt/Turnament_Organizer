@@ -1,0 +1,146 @@
+{
+    "infos": {
+        "name": {
+            "en": "Name",
+            "fr": "Nom"
+        },
+        "options": {
+            "en": "Options",
+            "fr": "Options"
+        },
+        "participants": {
+            "en": "Participants",
+            "fr": "Participants"
+        },
+        "type": {
+            "en": "Type",
+            "fr": "Type"
+        }
+    },
+    "options": {
+        "winType": {
+            "en": "Win Type",
+            "fr": "Type de Victoire",
+            "options": {
+                "score": {
+                    "en": "Score",
+                    "fr": "Score"
+                },
+                "designed": {
+                    "en": "Designed Winner",
+                    "fr": "Gagnant Désigné"
+                }
+            }
+        },
+        "drawOption": {
+            "en": "Draw Option",
+            "fr": "Option Nul"
+        },
+        "bestOf": {
+            "en": "Best Of",
+            "fr": "Best Of",
+            "diminutive": {
+                "en": "BO",
+                "fr": "BO"
+            }
+        },
+        "winPoints": {
+            "en": "Points/win",
+            "fr": "Points/victoire"
+        },
+        "drawPoints": {
+            "en": "Points/draw",
+            "fr": "Points/nul"
+        },
+        "qualify": {
+            "en": "Points Needed",
+            "fr": "Points Requis"
+        },
+        "randomOption": {
+            "en": "Distribution",
+            "fr": "Distribution"
+        },
+        "thirdPlaceOptions": {
+            "en": "Third Place",
+            "fr": "Troisième Place"
+        },
+        "pointsDiminutive": {
+            "single": {
+                "en": "pt",
+                "fr": "pt"
+            },
+            "multi": {
+                "en": "pts",
+                "fr": "pts"
+            }
+        }
+    },
+    "possibleTournamentTypes": {
+        "SwissRound": {
+            "en": "Swiss Round",
+            "fr": "Ronde Suisse"
+        },
+        "RoundRobin": {
+            "en": "Round Robin",
+            "fr": "Toutes Rondes"
+        },
+        "SingleBrackets": {
+            "en": "Elimination",
+            "fr": "Élimination Directe"
+        },
+        "DoubleBrackets": {
+            "en": "Double Elimination",
+            "fr": "Élimination Double"
+        }
+    },
+    "string": {
+        "welcome": {
+            "en": "Main Page",
+            "fr": "Page d'accueil"
+        }
+    },
+    "create": {
+        "title": {
+            "en": "Create a new tournament",
+            "fr": "Créer un nouveau tournoi"
+        },
+        "tournamentName": {
+            "en": "Tournament's name",
+            "fr": "Nom du tournoi"
+        },
+        "participantName": {
+            "en": "Enter the participants's name (from the best to the worst)",
+            "fr": "Entrez le nom des participants (du meilleur au moins bon)"
+        }
+    },
+    "error": {
+        "tournamentName": {
+            "en": "A name is needed for the tournament",
+            "fr": "Précisez le nom du tournoi"
+        },
+        "tournaments": {
+            "en": "No tournament yet",
+            "fr": "Aucun tournoi enregistré"
+        },
+        "tournamentInfo": {
+            "en": "No tournament selected",
+            "fr": "Aucun tournoi sélectionné"
+        },
+        "alreadyNamed": {
+            "en": "There's already a tournament with that name",
+            "fr": "Un tournoi à ce nom existe déjà"
+        },
+        "tournamentType": {
+            "en": "Choose a tournament type",
+            "fr": "Choisissez un type de tournoi"
+        },
+        "minimumPlayers": {
+            "en": "Needs at least 2 players",
+            "fr": "Un minimum de 2 participants est requis"
+        },
+        "similarName": {
+            "en": "Players must have a different name",
+            "fr": "Les participants doivent tous avoir un nom différent"
+        }
+    }
+}

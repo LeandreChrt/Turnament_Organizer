@@ -1,0 +1,5 @@
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+# RewriteBase /
+RewriteCond %{REQUEST_URI} !^/(webroot/.+|.*/Test.php)$
+RewriteRule ^ index.php [QSA,L]

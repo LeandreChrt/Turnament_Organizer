@@ -1,8 +1,8 @@
 <?php
 
-require "New_Organizer.php";
+require "roundRobin.php";
 
-$teams = ["+UN", "ARE", "ART", "CHA", "DRA", "ESP", "ENE", "GOB", "GRI", "GUI", "JES", "KAZ", "MMA", "MUR", "OIS", "SER", "SOR", "VAM", "ZAK", "ZOM"];
+$teams = ["+UN", "ARE", "ART", "CHA", "DRA", "ESP", "ENE", "GOB", "GRI", "GUI", "JES", "KAZ", "MMA", "MUR", "OIS", "SER", "SOR", "VAM", "ZAK"/*, "ZOM"*/];
 
 Planning_generator::setTeams($teams);
 Planning_generator::createTabOfDuels(count($teams));
