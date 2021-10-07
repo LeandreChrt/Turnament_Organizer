@@ -1,4 +1,16 @@
 {
+    "genericThermes": {
+        "bool": {
+            "true": {
+                "en": "True",
+                "fr": "Vrai"
+            },
+            "false": {
+                "en": "False",
+                "fr": "Faux"
+            }
+        }
+    },
     "infos": {
         "name": {
             "en": "Name",
@@ -58,11 +70,31 @@
         },
         "randomOption": {
             "en": "Distribution",
-            "fr": "Distribution"
+            "fr": "Distribution",
+            "options": {
+                "order": {
+                    "en": "In Order",
+                    "fr": "Avec l'Ordre"
+                },
+                "random": {
+                    "en": "Random",
+                    "fr": "Aléatoire"
+                }
+            }
         },
         "thirdPlaceOptions": {
             "en": "Third Place",
-            "fr": "Troisième Place"
+            "fr": "Troisième Place",
+            "options": {
+                "on": {
+                    "en": "With Third",
+                    "fr": "Avec un Troisième"
+                },
+                "off": {
+                    "en": "Without Third",
+                    "fr": "Sans Troisième"
+                }
+            }
         },
         "pointsDiminutive": {
             "single": {

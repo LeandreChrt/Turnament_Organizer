@@ -48,25 +48,25 @@ $json = Core::getJsonFile();
                     <h1 class="options" id="option"><?=$json->infos->options->$language?></h1>
                     <label for="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets"><?=$json->options->randomOption->$language?></label>
                     <select id="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets" autocomplete="off">
-                        <option>Distribuer avec l'ordre</option>
-                        <option>Distribuer aléatoirement</option>
+                        <option value="order"><?=$json->options->randomOption->options->order->$language?></option>
+                        <option value="random"><?=$json->options->randomOption->options->random->$language?></option>
                     </select>
                     <label for="thirdPlaceOptions" class="options optionsSingleBrackets"><?=$json->options->thirdPlaceOptions->$language?></label>
                     <select id="thirdPlaceOptions" class="options optionsSingleBrackets" autocomplete="off">
-                        <option>Match pour la 3ème place</option>
-                        <option selected>Pas de match pour la 3ème place</option>
+                        <option value="on"><?=$json->options->thirdPlaceOptions->options->on->$language?></option>
+                        <option value="off" selected><?=$json->options->thirdPlaceOptions->options->off->$language?></option>
                     </select>
                     <label for="winType" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin"><?=$json->options->winType->$language?></label>
                     <select id="winType" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin" onchange="winChange(event)" autocomplete="off">
-                        <option selected value="score"><?=$json->options->winType->options->score->$language?></option>
+                        <option value="score" selected><?=$json->options->winType->options->score->$language?></option>
                         <option value="designed"><?=$json->options->winType->options->designed->$language?></option>
                     </select>
                     <label for="bestOf" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin"><?=$json->options->bestOf->$language?></label>
                     <select id="bestOf" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin" autocomplete="off" disabled>
-                        <option selected><?=$json->options->bestOf->diminutive->$language?>1</option>
-                        <option><?=$json->options->bestOf->diminutive->$language?>3</option>
-                        <option><?=$json->options->bestOf->diminutive->$language?>5</option>
-                        <option><?=$json->options->bestOf->diminutive->$language?>7</option>
+                        <option value="1" selected><?=$json->options->bestOf->diminutive->$language?>1</option>
+                        <option value="3"><?=$json->options->bestOf->diminutive->$language?>3</option>
+                        <option value="5"><?=$json->options->bestOf->diminutive->$language?>5</option>
+                        <option value="7"><?=$json->options->bestOf->diminutive->$language?>7</option>
                     </select>
                     <label for="drawOption" class="options optionsSwissRound optionsRoundRobin"><?=$json->options->drawOption->$language?></label>
                     <input type="checkbox" id="drawOption" class="options optionsSwissRound optionsRoundRobin" onchange="drawChange(event)" autocomplete="off">
@@ -75,11 +75,11 @@ $json = Core::getJsonFile();
                         <?php 
                             for ($i = 1; $i <= 100; $i++){
                                 if ($i === 3){
-                                    ?><option selected><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
+                                    ?><option value=<?=$i?> selected><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
                                 } else if ($i === 1){
-                                    ?><option><?=$i . $json->options->pointsDiminutive->single->$language?></option><?php
+                                    ?><option value=<?=$i?>><?=$i . $json->options->pointsDiminutive->single->$language?></option><?php
                                 } else {
-                                    ?><option><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
+                                    ?><option value=<?=$i?>><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
                                 }
                             }
                         ?>
@@ -89,9 +89,9 @@ $json = Core::getJsonFile();
                         <?php 
                             for ($i = 1; $i <= 100; $i++){
                                 if ($i === 1){
-                                    ?><option selected><?=$i . $json->options->pointsDiminutive->single->$language?></option><?php
+                                    ?><option value=<?=$i?> selected><?=$i . $json->options->pointsDiminutive->single->$language?></option><?php
                                 } else {
-                                    ?><option><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
+                                    ?><option value=<?=$i?>><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
                                 }
                             }
                         ?>
@@ -101,11 +101,11 @@ $json = Core::getJsonFile();
                     <?php 
                             for ($i = 1; $i <= 300; $i++){
                                 if ($i === 9){
-                                    ?><option selected><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
+                                    ?><option value=<?=$i?> selected><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
                                 } else if ($i === 1) {
-                                    ?><option><?=$i . $json->options->pointsDiminutive->single->$language?></option><?php
+                                    ?><option value=<?=$i?>><?=$i . $json->options->pointsDiminutive->single->$language?></option><?php
                                 } else {
-                                    ?><option><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
+                                    ?><option value=<?=$i?>><?=$i . $json->options->pointsDiminutive->multi->$language?></option><?php
                                 }
                             }
                         ?>

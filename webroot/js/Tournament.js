@@ -42,7 +42,6 @@ const Tournament = {
                 tournamentType = tournamentType.charAt(0).toUpperCase() + tournamentType.slice(1);
             }
         }
-        console.log(tournamentType)
         if (newTournament === "") {
             $("#errorMessage").html(this.jsonFile.error.tournamentName[this.language]);
             $("#error").css("visibility", "visible")
@@ -59,6 +58,9 @@ const Tournament = {
             var listOfNames = {}
             var listOfOptions = {}
             var queryOptions = $(".options" + tournamentType)
+            var name = "tournamentCustom(" + newTournament + ")"
+            var programme;
+            var json;
             for (i = 1; i < $(".name").length; i++) {
                 if (Object.values(listOfNames).includes($(".name")[i - 1].value)) {
                     $("#errorMessage").html(this.jsonFile.error.similarName[this.language])
@@ -72,7 +74,7 @@ const Tournament = {
                 if (queryOptions[j].tagName === "INPUT") {
                     listOfOptions[queryOptions[j].id] = queryOptions[j].checked
                 } else if (queryOptions[j].id === "bestOf") {
-                    if (listOfOptions.winType !== "Score") {
+                    if (listOfOptions.winType !== "score") {
                         listOfOptions[queryOptions[j].id] = queryOptions[j].value
                     }
                 } else if (queryOptions[j].id === "drawPoints") {
@@ -83,12 +85,23 @@ const Tournament = {
                     listOfOptions[queryOptions[j].id] = queryOptions[j].value
                 }
             }
-            var name = "tournamentCustom(" + newTournament + ")"
-            var json = {
-                "name": newTournament,
-                "type": tournamentType,
-                "participants": listOfNames,
-                "options": listOfOptions
+            $.ajax({
+                type: "post",
+                url: "/" + this.language + "/tournamentNew",
+                data: {
+                    type: tournamentType,
+                    options: listOfOptions,
+                    nombreParticipants: Object.values(listOfNames).length,
+                },
+                success: function(response) {
+                    console.log(response)
+                }
+            })
+            json = {
+                name: newTournament,
+                type: tournamentType,
+                participants: listOfNames,
+                options: listOfOptions
             }
             localStorage.setItem(name, JSON.stringify(json))
             $("#errorMessage").html("hidden")
@@ -134,9 +147,23 @@ const Tournament = {
 
         left += "<p><strong>" + this.jsonFile.infos.name[this.language] + "</strong> : " + name + "</br>"
         left += "<strong>" + this.jsonFile.infos.type[this.language] + "</strong> : " + this.jsonFile.possibleTournamentTypes[type][this.language] + "</p>"
-        left += "<p class='alignCenter'><strong>" + this.jsonFile.infos.options[this.language] + "</strong></p><p>"
+        left += "<p class='alignCenter'><strong>" + this.jsonFile.infos.options[this.language] + "</strong></p><p id='optionsP'>"
         Object.keys(options).forEach(key => {
-            left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + options[key] + "</br>"
+            if (!["drawOption", "winPoints", "drawPoints", "qualify", "bestOf"].includes(key)){
+                left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + this.jsonFile.options[key].options[options[key]][this.language] + "</br>"
+            } else if (key === "bestOf") {
+                left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + this.jsonFile.options[key].diminutive[this.language] + options[key] + "</br>"
+            } else if (["winPoints", "drawPoints", "qualify"].includes(key)) {
+                if (options[key] > 1) {
+                    left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + options[key] + this.jsonFile.options.pointsDiminutive.multi[this.language] + "</br>"
+                } else {
+                    left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + options[key] + this.jsonFile.options.pointsDiminutive.single[this.language] + "</br>"
+                }
+            } else if (key === "drawOption") {
+                left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + this.jsonFile.genericThermes.bool[options[key]][this.language] + "</br>"
+            } else {
+                left += "<strong>" + this.jsonFile.options[key][this.language] + "</strong> : " + options[key] + "</br>"
+            }
         });
         left += "</p>"
 

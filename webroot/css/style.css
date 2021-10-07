@@ -39,6 +39,7 @@ body {
 #tournamentInfo {
     height: 334px;
     margin: 10px;
+    padding: 0 10px;
 } 
 #create {
     margin: 10px;
@@ -51,7 +52,7 @@ body {
     grid-template-rows: repeat(4, max-content);
     grid-row-gap: 10px;
 }
-#confirm, #optionsDiv {
+#confirm, #optionsDiv, #tournamentInfo button {
     margin: auto;
 }
 input, select, button {
@@ -89,4 +90,8 @@ select, input[type="checkbox"] {
 }
 .options {
     display: none;
+}
+#optionsP {
+    height: 128px;
+    overflow: scroll;
 }
