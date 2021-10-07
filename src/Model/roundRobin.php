@@ -5,34 +5,41 @@ class Planning_generator
     private static $teams;
     private static $tabOfDuels;
     private static $odd;
-    public static function setTeams($array)
+
+    public function __construct($nbrTeams)
     {
-        foreach ($array as $number => $team) {
-            self::$teams[$number] = ["id" => $number + 1, "name" => $team];
+        self::$teams = [];
+        for ($i = 1; $i <= $nbrTeams; $i++) {
+            array_push(self::$teams, $i);
         }
-        self::$odd = count(self::$teams) % 2 === 0 ? true : false;
-    }
-    public static function getTeams()
-    {
-        return self::$teams;
-    }
-    public static function createTabOfDuels($numberOfTeams)
-    {
+        self::$odd = $nbrTeams % 2 === 0 ? true : false;
         self::$tabOfDuels = [];
-        for ($i = 0; $i < $numberOfTeams; $i++) {
-            self::$tabOfDuels[self::$teams[$i]["name"]] = [];
+        for ($i = 0; $i < $nbrTeams; $i++) {
+            self::$tabOfDuels[self::$teams[$i]] = [];
             if (self::$odd) {
-                for ($j = 1; $j < $numberOfTeams; $j++) {
-                    self::$tabOfDuels[self::$teams[$i]["name"]][$j] = null;
+                for ($j = 1; $j < $nbrTeams; $j++) {
+                    self::$tabOfDuels[self::$teams[$i]][$j] = null;
                 }
             } else {
-                for ($j = 1; $j <= $numberOfTeams; $j++) {
-                    self::$tabOfDuels[self::$teams[$i]["name"]][$j] = null;
+                for ($j = 1; $j <= $nbrTeams; $j++) {
+                    self::$tabOfDuels[self::$teams[$i]][$j] = null;
                 }
             }
         }
+        $this->setTabOfDuels();
     }
-    public static function setTabOfDuels($tabOfTeams = [], $day_match = 0)
+
+    public function getTeams()
+    {
+        return self::$teams;
+    }
+
+    public function getTabOfDuels()
+    {
+        return self::$tabOfDuels;
+    }
+
+    public function setTabOfDuels($tabOfTeams = [], $day_match = 0)
     {
         if (count($tabOfTeams) <= 1) {
             $day_match++;
@@ -40,13 +47,13 @@ class Planning_generator
                 return true;
             } else if ($day_match > count(self::$teams) && !self::$odd) {
                 return true;
-            } else if (count($tabOfTeams) === 1 && count(self::getAlreadyFaced($tabOfTeams[array_key_first($tabOfTeams)]["name"])) === $day_match - 3){
+            } else if (count($tabOfTeams) === 1 && count($this->getAlreadyFaced($tabOfTeams[array_key_first($tabOfTeams)])) === $day_match - 3) {
                 return false;
             }
             $tabOfTeams = self::$teams;
             shuffle($tabOfTeams);
             foreach ($tabOfTeams as $key => $team) {
-                if (count(self::getAlreadyFaced($team["name"])) === $day_match - 2) {
+                if (count($this->getAlreadyFaced($team)) === $day_match - 2) {
                     $stock = $tabOfTeams[$key];
                     unset($tabOfTeams[$key]);
                     array_unshift($tabOfTeams, $stock);
@@ -56,29 +63,29 @@ class Planning_generator
         $tabTeamForeach = $tabOfTeams;
         foreach ($tabTeamForeach as $idShuffle => $team) {
             unset($tabOfTeams[$idShuffle]);
-            $tabOpponent = self::getPossibleOpponents($team["name"], $tabOfTeams);
+            $tabOpponent = $this->getPossibleOpponents($team, $tabOfTeams);
             if (count($tabOpponent) === 0) {
                 return false;
             }
             shuffle($tabOpponent);
-            foreach ($tabOpponent as $key => $nameOpponent){
-                if (count(self::getAlreadyFaced($nameOpponent)) === $day_match - 2) {
+            foreach ($tabOpponent as $key => $nameOpponent) {
+                if (count($this->getAlreadyFaced($nameOpponent)) === $day_match - 2) {
                     $stock = $tabOpponent[$key];
                     unset($tabOpponent[$key]);
                     array_unshift($tabOpponent, $stock);
                 }
             }
             foreach ($tabOpponent as $nameOpponent) {
-                $opponent = self::$teams[self::searchForName($nameOpponent)];
+                $opponent = self::$teams[$this->searchForName($nameOpponent)];
                 $idInShuffle = array_search($opponent, $tabOfTeams);
                 unset($tabOfTeams[$idInShuffle]);
-                self::$tabOfDuels[$team["name"]][$day_match] = $opponent["name"];
-                $returnBool = self::setTabOfDuels($tabOfTeams, $day_match);
+                self::$tabOfDuels[$team][$day_match] = $opponent;
+                $returnBool = $this->setTabOfDuels($tabOfTeams, $day_match);
                 if ($returnBool) {
                     return true;
                 } else {
                     $tabOfTeams[$idInShuffle] = $opponent;
-                    self::$tabOfDuels[$team["name"]][$day_match] = null;
+                    self::$tabOfDuels[$team][$day_match] = null;
                 }
             }
             $tabOfTeams[$idShuffle] = $team;
@@ -86,11 +93,8 @@ class Planning_generator
         }
         return false;
     }
-    public static function getTabOfDuels()
-    {
-        return self::$tabOfDuels;
-    }
-    private static function getAlreadyFaced($teamName)
+
+    private function getAlreadyFaced($teamName)
     {
         $alreadyFaced = [];
         foreach (self::$tabOfDuels as $name => $team) {
@@ -106,33 +110,33 @@ class Planning_generator
         }
         return $alreadyFaced;
     }
-    private static function getPossibleOpponents($teamName, $tabOfTeams)
+    private function getPossibleOpponents($teamName, $tabOfTeams)
     {
-        $alreadyFaced = self::getAlreadyFaced($teamName);
+        $alreadyFaced = $this->getAlreadyFaced($teamName);
         $newTabOfTeams = [];
         foreach ($tabOfTeams as $team) {
-            array_push($newTabOfTeams, $team["name"]);
+            array_push($newTabOfTeams, $team);
         }
         $available = array_diff($newTabOfTeams, $alreadyFaced);
         return $available;
     }
-    public static function searchForName($name)
+    public function searchForName($name)
     {
         foreach (self::$teams as $key => $val) {
-            if ($val['name'] === $name) {
+            if ($val === $name) {
                 return $key;
             }
         }
         return null;
     }
 
-    public static function display()
+    public function display()
     {
         if (self::$odd) {
             for ($day = 1; $day < count(self::$teams); $day++) {
                 echo "<h3>JOUR " . $day . " !</h3>";
                 // echo "JOUR " . $day . " !\n";
-                $shuffledArray = self::shuffle_assoc(self::$tabOfDuels);
+                $shuffledArray = $this->shuffle_assoc(self::$tabOfDuels);
                 foreach ($shuffledArray as $team => $duels) {
                     if ($duels[$day] !== null) {
                         $opponent = $duels[$day];
@@ -156,7 +160,7 @@ class Planning_generator
             }
         }
     }
-    private static function shuffle_assoc($list)
+    private function shuffle_assoc($list)
     {
         if (!is_array($list)) {
             return $list;
