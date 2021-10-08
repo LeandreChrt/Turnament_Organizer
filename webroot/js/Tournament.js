@@ -59,8 +59,8 @@ const Tournament = {
             var listOfOptions = {}
             var queryOptions = $(".options" + tournamentType)
             var name = "tournamentCustom(" + newTournament + ")"
-            var programme;
             var json;
+            var self = this
             for (i = 1; i < $(".name").length; i++) {
                 if (Object.values(listOfNames).includes($(".name")[i - 1].value)) {
                     $("#errorMessage").html(this.jsonFile.error.similarName[this.language])
@@ -90,24 +90,23 @@ const Tournament = {
                 url: "/" + this.language + "/tournamentNew",
                 data: {
                     type: tournamentType,
-                    options: listOfOptions,
                     nombreParticipants: Object.values(listOfNames).length,
                 },
                 success: function(response) {
-                    console.log(response)
+                    json = {
+                        name: newTournament,
+                        type: tournamentType,
+                        participants: listOfNames,
+                        options: listOfOptions,
+                        planning: response
+                    }
+                    localStorage.setItem(name, JSON.stringify(json))
+                    $("#errorMessage").html("hidden")
+                    $("#error").css("visibility", "hidden")
+                    $("#tournamentName")[0].value = ""
+                    self.getTournaments()
                 }
             })
-            json = {
-                name: newTournament,
-                type: tournamentType,
-                participants: listOfNames,
-                options: listOfOptions
-            }
-            localStorage.setItem(name, JSON.stringify(json))
-            $("#errorMessage").html("hidden")
-            $("#error").css("visibility", "hidden")
-            $("#tournamentName")[0].value = ""
-            this.getTournaments()
         }
     },
     deleteTournament: function () {
@@ -143,7 +142,11 @@ const Tournament = {
                     break;
             }
         })
-        right += "<h3 class='alignCenter'>Participants</h3>"
+        right += "<h3 class='alignCenter'>Participants</h3><ul id='participantsList'>"
+        Object.values(participants).forEach(name => {
+            right += "<li>" + name + "</li>"
+        })
+        right += "</ul>"
 
         left += "<p><strong>" + this.jsonFile.infos.name[this.language] + "</strong> : " + name + "</br>"
         left += "<strong>" + this.jsonFile.infos.type[this.language] + "</strong> : " + this.jsonFile.possibleTournamentTypes[type][this.language] + "</p>"

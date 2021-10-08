@@ -2,17 +2,18 @@
 
 namespace Model;
 
+use Model\roundRobin;
+
 class AppModel
 {
-    public function newTournament($type, $options, $nombreParticipants)
+    public function newTournament($type, $nombreParticipants)
     {
-        var_dump($type);
-        var_dump($options);
-        var_dump($nombreParticipants);
         switch ($type) {
             case "SwissRound":
                 break;
             case "RoundRobin":
+                $test = new roundRobin ($nombreParticipants);
+                var_dump($test->getTabOfDuels());
                 break;
             case "SingleBrackets":
                 break;

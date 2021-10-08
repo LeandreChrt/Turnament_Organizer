@@ -46,16 +46,6 @@ $json = Core::getJsonFile();
                 <input type="radio" name="tournamentType" id="doubleBrackets" class="tournamentType" onclick='Tournament.typeTournament(event)' autocomplete="off">
                 <div id="optionsDiv">
                     <h1 class="options" id="option"><?=$json->infos->options->$language?></h1>
-                    <label for="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets"><?=$json->options->randomOption->$language?></label>
-                    <select id="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets" autocomplete="off">
-                        <option value="order"><?=$json->options->randomOption->options->order->$language?></option>
-                        <option value="random"><?=$json->options->randomOption->options->random->$language?></option>
-                    </select>
-                    <label for="thirdPlaceOptions" class="options optionsSingleBrackets"><?=$json->options->thirdPlaceOptions->$language?></label>
-                    <select id="thirdPlaceOptions" class="options optionsSingleBrackets" autocomplete="off">
-                        <option value="on"><?=$json->options->thirdPlaceOptions->options->on->$language?></option>
-                        <option value="off" selected><?=$json->options->thirdPlaceOptions->options->off->$language?></option>
-                    </select>
                     <label for="winType" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin"><?=$json->options->winType->$language?></label>
                     <select id="winType" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin" onchange="winChange(event)" autocomplete="off">
                         <option value="score" selected><?=$json->options->winType->options->score->$language?></option>
@@ -67,6 +57,16 @@ $json = Core::getJsonFile();
                         <option value="3"><?=$json->options->bestOf->diminutive->$language?>3</option>
                         <option value="5"><?=$json->options->bestOf->diminutive->$language?>5</option>
                         <option value="7"><?=$json->options->bestOf->diminutive->$language?>7</option>
+                    </select>
+                    <label for="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets"><?=$json->options->randomOption->$language?></label>
+                    <select id="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets" autocomplete="off">
+                        <option value="order"><?=$json->options->randomOption->options->order->$language?></option>
+                        <option value="random"><?=$json->options->randomOption->options->random->$language?></option>
+                    </select>
+                    <label for="thirdPlaceOptions" class="options optionsSingleBrackets"><?=$json->options->thirdPlaceOptions->$language?></label>
+                    <select id="thirdPlaceOptions" class="options optionsSingleBrackets" autocomplete="off">
+                        <option value="on"><?=$json->options->thirdPlaceOptions->options->on->$language?></option>
+                        <option value="off" selected><?=$json->options->thirdPlaceOptions->options->off->$language?></option>
                     </select>
                     <label for="drawOption" class="options optionsSwissRound optionsRoundRobin"><?=$json->options->drawOption->$language?></label>
                     <input type="checkbox" id="drawOption" class="options optionsSwissRound optionsRoundRobin" onchange="drawChange(event)" autocomplete="off">

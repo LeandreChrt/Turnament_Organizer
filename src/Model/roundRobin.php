@@ -1,6 +1,8 @@
 <?php
 
-class Planning_generator
+namespace Model;
+
+class roundRobin
 {
     private static $teams;
     private static $tabOfDuels;
