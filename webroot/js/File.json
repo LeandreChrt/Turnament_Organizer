@@ -49,11 +49,15 @@
             "fr": "Option Nul"
         },
         "bestOf": {
-            "en": "Best Of",
-            "fr": "Best Of",
+            "en": "Winning rule",
+            "fr": "Type de rencontre",
             "diminutive": {
                 "en": "BO",
                 "fr": "BO"
+            },
+            "homeAndAway": {
+                "en": "Home and Away",
+                "fr": "Aller-Retour"
             }
         },
         "winPoints": {

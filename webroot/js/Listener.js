@@ -25,13 +25,6 @@ function drawChange (event) {
         $("#drawPoints")[0].disabled = true
     }
 }
-function winChange (event) {
-    if (event.target.value === "designed") {
-        $("#bestOf")[0].disabled = false
-    } else {
-        $("#bestOf")[0].disabled = true
-    }
-}
 function keyIsUp(event) {
     target = event.target
     if (target.value.trim() === "") {
@@ -73,5 +66,13 @@ function focusIsOut(event) {
             newItem.setAttribute("for", "number" + i)
             $("#participantsName")[0].insertBefore(newItem, $(".name")[i - 1])
         }
+    }
+}
+
+function winChange(event) {
+    if (event.target.value === "score") {
+        $("#bestOf").append("<option value='homeAndAway' id='homeAndAway'>" + Tournament.jsonFile.options.bestOf.homeAndAway[Tournament.language] + "</option>")
+    } else {
+        $("option").remove("#homeAndAway")
     }
 }

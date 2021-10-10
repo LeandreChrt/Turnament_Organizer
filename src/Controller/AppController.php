@@ -19,7 +19,7 @@ class AppController extends Controller
             ErrorController::errorAction();
         } else {
             $tournament = new AppModel;
-            $tournament->newTournament($post["type"], $post["nombreParticipants"]);
+            $tournament->newTournament($post["type"], $post["nombreParticipants"], $post["options"]);
         }
     }
 }

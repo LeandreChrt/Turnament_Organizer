@@ -48,15 +48,16 @@ $json = Core::getJsonFile();
                     <h1 class="options" id="option"><?=$json->infos->options->$language?></h1>
                     <label for="winType" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin"><?=$json->options->winType->$language?></label>
                     <select id="winType" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin" onchange="winChange(event)" autocomplete="off">
-                        <option value="score" selected><?=$json->options->winType->options->score->$language?></option>
-                        <option value="designed"><?=$json->options->winType->options->designed->$language?></option>
+                        <option value="designed" selected><?=$json->options->winType->options->designed->$language?></option>
+                        <option value="score"><?=$json->options->winType->options->score->$language?></option>
                     </select>
                     <label for="bestOf" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin"><?=$json->options->bestOf->$language?></label>
-                    <select id="bestOf" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin" autocomplete="off" disabled>
+                    <select id="bestOf" class="options optionsSingleBrackets optionsDoubleBrackets optionsSwissRound optionsRoundRobin" autocomplete="off">
                         <option value="1" selected><?=$json->options->bestOf->diminutive->$language?>1</option>
                         <option value="3"><?=$json->options->bestOf->diminutive->$language?>3</option>
                         <option value="5"><?=$json->options->bestOf->diminutive->$language?>5</option>
                         <option value="7"><?=$json->options->bestOf->diminutive->$language?>7</option>
+                        
                     </select>
                     <label for="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets"><?=$json->options->randomOption->$language?></label>
                     <select id="randomOption" class="options optionsSingleBrackets optionsDoubleBrackets" autocomplete="off">

@@ -4,27 +4,27 @@ namespace Model;
 
 class roundRobin
 {
-    private static $teams;
-    private static $tabOfDuels;
-    private static $odd;
+    private $teams;
+    private $tabOfDuels;
+    private $odd;
 
     public function __construct($nbrTeams)
     {
-        self::$teams = [];
+        $this->teams = [];
         for ($i = 1; $i <= $nbrTeams; $i++) {
-            array_push(self::$teams, $i);
+            array_push($this->teams, $i);
         }
-        self::$odd = $nbrTeams % 2 === 0 ? true : false;
-        self::$tabOfDuels = [];
+        $this->odd = $nbrTeams % 2 === 0 ? true : false;
+        $this->tabOfDuels = [];
         for ($i = 0; $i < $nbrTeams; $i++) {
-            self::$tabOfDuels[self::$teams[$i]] = [];
-            if (self::$odd) {
+            $this->tabOfDuels[$this->teams[$i]] = [];
+            if ($this->odd) {
                 for ($j = 1; $j < $nbrTeams; $j++) {
-                    self::$tabOfDuels[self::$teams[$i]][$j] = null;
+                    $this->tabOfDuels[$this->teams[$i]][$j] = ["opponent" => null, "win" => null, "score" => null];
                 }
             } else {
                 for ($j = 1; $j <= $nbrTeams; $j++) {
-                    self::$tabOfDuels[self::$teams[$i]][$j] = null;
+                    $this->tabOfDuels[$this->teams[$i]][$j] = ["opponent" => null, "win" => null, "score" => null];
                 }
             }
         }
@@ -33,26 +33,26 @@ class roundRobin
 
     public function getTeams()
     {
-        return self::$teams;
+        return $this->teams;
     }
 
     public function getTabOfDuels()
     {
-        return self::$tabOfDuels;
+        return $this->tabOfDuels;
     }
 
     public function setTabOfDuels($tabOfTeams = [], $day_match = 0)
     {
         if (count($tabOfTeams) <= 1) {
             $day_match++;
-            if ($day_match >= count(self::$teams) && self::$odd) {
+            if ($day_match >= count($this->teams) && $this->odd) {
                 return true;
-            } else if ($day_match > count(self::$teams) && !self::$odd) {
+            } else if ($day_match > count($this->teams) && !$this->odd) {
                 return true;
             } else if (count($tabOfTeams) === 1 && count($this->getAlreadyFaced($tabOfTeams[array_key_first($tabOfTeams)])) === $day_match - 3) {
                 return false;
             }
-            $tabOfTeams = self::$teams;
+            $tabOfTeams = $this->teams;
             shuffle($tabOfTeams);
             foreach ($tabOfTeams as $key => $team) {
                 if (count($this->getAlreadyFaced($team)) === $day_match - 2) {
@@ -78,16 +78,16 @@ class roundRobin
                 }
             }
             foreach ($tabOpponent as $nameOpponent) {
-                $opponent = self::$teams[$this->searchForName($nameOpponent)];
+                $opponent = $this->teams[$this->searchForName($nameOpponent)];
                 $idInShuffle = array_search($opponent, $tabOfTeams);
                 unset($tabOfTeams[$idInShuffle]);
-                self::$tabOfDuels[$team][$day_match] = $opponent;
+                $this->tabOfDuels[$team][$day_match]["opponent"] = $opponent;
                 $returnBool = $this->setTabOfDuels($tabOfTeams, $day_match);
                 if ($returnBool) {
                     return true;
                 } else {
                     $tabOfTeams[$idInShuffle] = $opponent;
-                    self::$tabOfDuels[$team][$day_match] = null;
+                    $this->tabOfDuels[$team][$day_match]["opponent"] = null;
                 }
             }
             $tabOfTeams[$idShuffle] = $team;
@@ -99,15 +99,21 @@ class roundRobin
     private function getAlreadyFaced($teamName)
     {
         $alreadyFaced = [];
-        foreach (self::$tabOfDuels as $name => $team) {
+        foreach ($this->tabOfDuels as $name => $team) {
             if ($name === $teamName) {
                 foreach ($team as $opponent) {
-                    if ($opponent !== null) {
-                        array_push($alreadyFaced, $opponent);
+                    if ($opponent["opponent"] !== null) {
+                        array_push($alreadyFaced, $opponent["opponent"]);
                     }
                 }
-            } else if (in_array($teamName, $team)) {
-                array_push($alreadyFaced, $name);
+            // } else if (in_array($teamName, $team)) {
+            //     array_push($alreadyFaced, $name);
+            } else {
+                foreach ($team as $array){
+                    if ($teamName === $array["opponent"]) {
+                        array_push($alreadyFaced, $name);
+                    }
+                }
             }
         }
         return $alreadyFaced;
@@ -124,7 +130,7 @@ class roundRobin
     }
     public function searchForName($name)
     {
-        foreach (self::$teams as $key => $val) {
+        foreach ($this->teams as $key => $val) {
             if ($val === $name) {
                 return $key;
             }
@@ -134,27 +140,27 @@ class roundRobin
 
     public function display()
     {
-        if (self::$odd) {
-            for ($day = 1; $day < count(self::$teams); $day++) {
+        if ($this->odd) {
+            for ($day = 1; $day < count($this->teams); $day++) {
                 echo "<h3>JOUR " . $day . " !</h3>";
                 // echo "JOUR " . $day . " !\n";
-                $shuffledArray = $this->shuffle_assoc(self::$tabOfDuels);
+                $shuffledArray = $this->shuffle_assoc($this->tabOfDuels);
                 foreach ($shuffledArray as $team => $duels) {
-                    if ($duels[$day] !== null) {
-                        $opponent = $duels[$day];
+                    if ($duels[$day]["opponent"] !== null) {
+                        $opponent = $duels[$day]["opponent"];
                         echo $team . " VS " . $opponent . "<br>";
                         // echo $team . " VS " . $opponent . "\n";
                     }
                 }
             }
         } else {
-            for ($day = 1; $day <= count(self::$teams); $day++) {
+            for ($day = 1; $day <= count($this->teams); $day++) {
                 echo "<h3>JOUR " . $day . " !</h3>";
                 // echo "JOUR " . $day . " !\n";
-                $shuffledArray = self::shuffle_assoc(self::$tabOfDuels);
+                $shuffledArray = $this->shuffle_assoc($this->tabOfDuels);
                 foreach ($shuffledArray as $team => $duels) {
-                    if ($duels[$day] !== null) {
-                        $opponent = $duels[$day];
+                    if ($duels[$day]["opponent"] !== null) {
+                        $opponent = $duels[$day]["opponent"];
                         echo $team . " VS " . $opponent . "<br>";
                         // echo $team . " VS " . $opponent . "\n";
                     }
