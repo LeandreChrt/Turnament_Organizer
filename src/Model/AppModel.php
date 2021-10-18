@@ -17,9 +17,9 @@ class AppModel
                 $tournament = new roundRobin ($nombreParticipants);
                 var_dump($tournament->getTabOfDuels());
                 break;
-            // envoyer $options["thirdPlaceOptions"] à tous les brackets
             case "SingleBrackets":
-                $tournament = new singleBrackets ($nombreParticipants, $options["thirdPlaceOptions"]);
+                $tournament = new singleBrackets ($nombreParticipants, $options["thirdPlaceOptions"], $options["randomOption"]);
+                var_dump($tournament->getPlaning());
                 break;
             case "DoubleBrackets":
                 break;
