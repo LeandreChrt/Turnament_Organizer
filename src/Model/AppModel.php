@@ -15,11 +15,11 @@ class AppModel
                 break;
             case "RoundRobin":
                 $tournament = new roundRobin ($nombreParticipants);
-                var_dump($tournament->getTabOfDuels());
+                echo json_encode($tournament->getTabOfDuels());
                 break;
             case "SingleBrackets":
                 $tournament = new singleBrackets ($nombreParticipants, $options["thirdPlaceOptions"], $options["randomOption"]);
-                var_dump($tournament->getPlaning());
+                echo json_encode($tournament->getPlaning());
                 break;
             case "DoubleBrackets":
                 break;

@@ -90,7 +90,16 @@ const Tournament = {
                     options: listOfOptions
                 },
                 success: function (response) {
-                    console.log(response)
+                    response = JSON.parse(response)
+                    Object.entries(response).forEach(([key1, element]) => {
+                        Object.entries(element).forEach(([key2, match]) => {
+                            Object.entries(match).forEach(([key3, e]) => {
+                                if (e !== null) {
+                                    response[key1][key2][key3] = listOfNames[e];
+                                }
+                            })
+                        })
+                    })
                     json = {
                         name: newTournament,
                         type: tournamentType,
@@ -136,7 +145,7 @@ const Tournament = {
         var type;
         var participants;
         var options;
-        var bottom = "<button>Continue</button><button>Delete</button>"
+        var bottom = "<button>Delete</button><button>Continue</button>"
         index = this.existingTournamentsName.indexOf(this.escapeHtml(name))
         infos = this.existingTournamentsProgram[index];
         Object.keys(infos).forEach(key => {
@@ -153,8 +162,12 @@ const Tournament = {
                 case "options":
                     options = infos[key];
                     break;
+                case 'planning':
+                    planning = infos[key];
+                    break;
             }
         })
+        console.log(planning);
         right += "<h3 class='alignCenter'>Participants</h3><ul id='participantsList'>"
         Object.values(participants).forEach(name => {
             right += "<li>" + name + "</li>"
